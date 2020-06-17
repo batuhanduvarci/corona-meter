@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "covid-19",
-    "slug": "covid-19",
+    "name": "Corona Meter",
+    "slug": "corona-meter",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,14 +16,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.batuhanduvarci.covid19tracker",
+      "bundleIdentifier": "com.batuhanduvarci.coronaMeter",
       "buildNumber": "1.0.0",
       "config": {
         "googleMapsApiKey": "AIzaSyDjCxKehLRu7UVa4ke-JE1VuclrblCjHos"
       }
     },
     "android": {
-      "package": "com.batuhanduvarci.covid19tracker",
+      "package": "com.batuhanduvarci.coronaMeter",
       "versionCode": 1,
       "config": {
         "googleMaps": {

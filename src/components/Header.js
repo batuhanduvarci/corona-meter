@@ -10,7 +10,7 @@ const HEADER_MIN_HEIGHT = 50;
 const TITLE_MAX_SIZE = 60;
 const TITLE_MIN_SIZE = 16;
 
-const Header = ({ tabTitle, scrollY, isSearchActive, getCountries }) => {
+const Header = ({ tabTitle, scrollY }) => {
   const [isSearchBarVisible, setSearchBarVisible] = useState(false);
   const headerHeight = scrollY.interpolate({
     inputRange: [0, HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT],
@@ -54,8 +54,8 @@ const Header = ({ tabTitle, scrollY, isSearchActive, getCountries }) => {
         right: 0,
         backgroundColor: titleContainerColor,
         height: headerHeight,
-        zIndex: headerZindex,
-        borderBottomEndRadius: -16
+        zIndex: headerZindex
+        // borderBottomEndRadius: -16
       }}
     >
       <SafeAreaView
@@ -65,24 +65,6 @@ const Header = ({ tabTitle, scrollY, isSearchActive, getCountries }) => {
           flexDirection: "row"
         }}
       >
-        {/* {isSearchBarVisible ? (
-          <SearchBar
-            headerHeight={headerHeight}
-            toggleVisibility={toggleVisibility}
-            getCountries={getCountries}
-          />
-        ) : (
-          <Animated.Text
-            style={{
-              fontSize: titleHeight,
-              marginStart: 5,
-              color: titleColor,
-              alignSelf: "center"
-            }}
-          >
-            {tabTitle}
-          </Animated.Text>
-        )} */}
         <Animated.Text
           style={{
             fontSize: titleHeight,
@@ -103,21 +85,7 @@ const Header = ({ tabTitle, scrollY, isSearchActive, getCountries }) => {
           right: 4,
           bottom: 4
         }}
-      >
-        {/* {isSearchActive ? (
-          <Animated.View style={{}}>
-            {isSearchBarVisible ? null : (
-              <TouchableOpacity
-                onPress={() => {
-                  setSearchBarVisible(true);
-                }}
-              >
-                <FontAwesome name="search" size={24} color="#F2F2F2" />
-              </TouchableOpacity>
-            )}
-          </Animated.View>
-        ) : null} */}
-      </SafeAreaView>
+      ></SafeAreaView>
     </Animated.View>
   );
 };

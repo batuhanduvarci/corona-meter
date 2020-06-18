@@ -13,12 +13,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { AsyncStorage, Platform } from "react-native";
 import i18n from "i18n-js";
 import Constants from "expo-constants";
+import readData from "../utils/LocalStorage/readData";
+import { Buffer } from "buffer";
 
 const tabTitle = i18n.t("settings_label");
 
 export default SettingsScreen = props => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [language, setLanguage] = useState(i18n.locale);
+  const [size, setSize] = useState(0);
 
   const clearLocalStorage = async () => {
     if (Platform.OS == "android") {
@@ -26,9 +29,34 @@ export default SettingsScreen = props => {
     } else if (Platform.OS == "ios") {
       await AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove);
     }
+    await calculateUsedStorage();
   };
 
   props.route.params.changeLanguage(language);
+
+  const calculateUsedStorage = async () => {
+    const keyArray = await AsyncStorage.getAllKeys();
+    var storageSize = 0;
+    for (let index = 0; index < keyArray.length; index++) {
+      await readData(keyArray[index])
+        .then(value => {
+          return Buffer.byteLength(value.toString(), "utf-8");
+        })
+        .then(size => {
+          storageSize += size;
+        })
+        .then(() => {
+          setSize(storageSize);
+        });
+    }
+    setSize(storageSize);
+  };
+
+  useEffect(() => {
+    props.navigation.addListener("focus", () => {
+      calculateUsedStorage();
+    });
+  }, []);
 
   return (
     <Animated.View style={{ flex: 1 }}>
@@ -42,9 +70,16 @@ export default SettingsScreen = props => {
       >
         <View style={styles.container}>
           <View style={styles.rowStyle}>
-            <Text style={{ color: "dimgrey", fontSize: 12 }}>
-              {i18n.t("local_storage_label")}
-            </Text>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={{ color: "dimgrey", fontSize: 12 }}>
+                {i18n.t("local_storage_label")}
+              </Text>
+              <Text style={{ color: "dimgrey", fontSize: 12 }}>
+                {size + " " + i18n.t("byte_label")}
+              </Text>
+            </View>
           </View>
           <TouchableOpacity
             style={{
@@ -151,9 +186,7 @@ export default SettingsScreen = props => {
               <Text
                 style={{ alignSelf: "center", fontSize: 14, color: "dimgrey" }}
               >
-                {Platform.OS == "android"
-                  ? Constants.platform.android
-                  : Constants.platform.ios.model}
+                {Platform.OS == "android" ? null : Constants.platform.ios.model}
               </Text>
             </View>
           </View>

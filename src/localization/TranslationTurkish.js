@@ -26,5 +26,6 @@ export default {
   about_label: "Uygulama Hakkında",
   version_label: "Sürüm",
   contact_label: "İletişim",
-  acknowledgement_label: "Teşekkür"
+  device_label: "Cihaz",
+  os_label: "İşletim Sistemi Versiyonu"
 };

@@ -26,5 +26,6 @@ export default {
   about_label: "About",
   version_label: "Version",
   contact_label: "Contact Developer",
-  acknowledgement_label: "Acknowledgement"
+  device_label: "Device",
+  os_label: "Operating System Version"
 };

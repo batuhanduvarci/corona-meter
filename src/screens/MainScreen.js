@@ -181,7 +181,7 @@ export default MainScreen = ({ navigation }) => {
 
   return (
     <Animated.View style={{ flex: 1 }}>
-      <Header tabTitle={tabTitle} scrollY={scrollY} isSearchActive={false} />
+      <Header tabTitle={tabTitle} scrollY={scrollY} />
       <ScrollView
         style={{ flex: 1 }}
         scrollEventThrottle={16}

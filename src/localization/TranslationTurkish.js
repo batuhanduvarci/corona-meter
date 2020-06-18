@@ -27,5 +27,7 @@ export default {
   version_label: "Sürüm",
   contact_label: "İletişim",
   device_label: "Cihaz",
-  os_label: "İşletim Sistemi Versiyonu"
+  os_label: "İşletim Sistemi Versiyonu",
+  byte_label: "Byte kullanılıyor",
+  number_format: "0.0"
 };

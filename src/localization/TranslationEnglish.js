@@ -27,5 +27,7 @@ export default {
   version_label: "Version",
   contact_label: "Contact Developer",
   device_label: "Device",
-  os_label: "Operating System Version"
+  os_label: "Operating System Version",
+  byte_label: "Bytes are used",
+  number_format: "0,0"
 };

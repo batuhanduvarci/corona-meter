@@ -12,14 +12,13 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { AsyncStorage, Platform } from "react-native";
 import i18n from "i18n-js";
+import Constants from "expo-constants";
 
 const tabTitle = i18n.t("settings_label");
 
 export default SettingsScreen = props => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [language, setLanguage] = useState(i18n.locale);
-
-  console.log("props", props);
 
   const clearLocalStorage = async () => {
     if (Platform.OS == "android") {
@@ -29,7 +28,7 @@ export default SettingsScreen = props => {
     }
   };
 
-  i18n.locale = language;
+  props.route.params.changeLanguage(language);
 
   return (
     <Animated.View style={{ flex: 1 }}>
@@ -82,34 +81,6 @@ export default SettingsScreen = props => {
               {i18n.t("language_label")}
             </Text>
           </View>
-          {/* <TouchableOpacity
-            style={{
-              flex: 1,
-              flexDirection: "column"
-            }}
-            onPress={() => {}}
-          >
-            <View
-              style={[
-                styles.rowStyle,
-                {
-                  flexDirection: "row",
-                  backgroundColor: "white",
-                  borderTopWidth: 0.5,
-                  borderBottomWidth: 0.5,
-                  borderColor: "dimgrey",
-                  justifyContent: "space-between"
-                }
-              ]}
-            >
-              <Text style={{ alignSelf: "center", fontSize: 14 }}>
-                {i18n.locale == "tr-US" ? "Türkçe" : "English"}
-              </Text>
-              <View style={{ alignSelf: "center" }}>
-                <Ionicons name="ios-arrow-forward" size={24} color="black" />
-              </View>
-            </View>
-          </TouchableOpacity> */}
           <View style={{ flex: 1 }}>
             <Picker
               selectedValue={language}
@@ -157,7 +128,55 @@ export default SettingsScreen = props => {
               <Text
                 style={{ alignSelf: "center", fontSize: 14, color: "dimgrey" }}
               >
-                1.0.0
+                {Constants.manifest.version}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={[
+              styles.rowStyle,
+              {
+                flexDirection: "row",
+                backgroundColor: "white",
+                borderBottomWidth: 0.5,
+                borderColor: "dimgrey",
+                justifyContent: "space-between"
+              }
+            ]}
+          >
+            <Text style={{ alignSelf: "center", fontSize: 14 }}>
+              {i18n.t("device_label")}
+            </Text>
+            <View style={{ alignSelf: "center" }}>
+              <Text
+                style={{ alignSelf: "center", fontSize: 14, color: "dimgrey" }}
+              >
+                {Constants.platform.ios.model}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={[
+              styles.rowStyle,
+              {
+                flexDirection: "row",
+                backgroundColor: "white",
+                borderBottomWidth: 0.5,
+                borderColor: "dimgrey",
+                justifyContent: "space-between"
+              }
+            ]}
+          >
+            <Text style={{ alignSelf: "center", fontSize: 14 }}>
+              {i18n.t("os_label")}
+            </Text>
+            <View style={{ alignSelf: "center" }}>
+              <Text
+                style={{ alignSelf: "center", fontSize: 14, color: "dimgrey" }}
+              >
+                {Platform.OS == "android"
+                  ? Constants.platform.android.versionCode
+                  : Constants.platform.ios.systemVersion}
               </Text>
             </View>
           </View>
@@ -184,32 +203,6 @@ export default SettingsScreen = props => {
               </Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={{
-              flex: 1,
-              flexDirection: "column"
-            }}
-          >
-            <View
-              style={[
-                styles.rowStyle,
-                {
-                  flexDirection: "row",
-                  backgroundColor: "white",
-                  borderBottomWidth: 0.5,
-                  borderColor: "dimgrey",
-                  justifyContent: "space-between"
-                }
-              ]}
-            >
-              <Text style={{ alignSelf: "center", fontSize: 14 }}>
-                {i18n.t("acknowledgement_label")}
-              </Text>
-              <View style={{ alignSelf: "center" }}>
-                <Ionicons name="ios-arrow-forward" size={18} color="black" />
-              </View>
-            </View>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </Animated.View>

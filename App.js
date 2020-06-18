@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MainScreen from "./src/screens/MainScreen";
 import { NavigationContainer } from "@react-navigation/native";
@@ -24,14 +24,15 @@ if (Localization.locale == "tr-US") {
   i18n.locale = "en-US";
 }
 
-console.log(i18n.locale);
-
 export default function App() {
   const Tab = createMaterialBottomTabNavigator();
+  const [locale, setLocale] = useState("en-US");
 
   const changeLanguage = value => {
-    i18n.locale = value;
+    setLocale(value);
   };
+
+  i18n.locale = locale;
 
   return (
     <NavigationContainer>
@@ -69,6 +70,7 @@ export default function App() {
         <Tab.Screen
           name={i18n.t("bottom_navigator_settings")}
           component={SettingsScreen}
+          initialParams={{ changeLanguage: changeLanguage }}
           options={{
             tabBarIcon: ({ color }) => (
               <Ionicons name="md-settings" size={24} color={color} />

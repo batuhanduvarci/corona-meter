@@ -151,7 +151,9 @@ export default SettingsScreen = props => {
               <Text
                 style={{ alignSelf: "center", fontSize: 14, color: "dimgrey" }}
               >
-                {Constants.platform.ios.model}
+                {Platform.OS == "android"
+                  ? Constants.platform.android
+                  : Constants.platform.ios.model}
               </Text>
             </View>
           </View>
@@ -174,9 +176,7 @@ export default SettingsScreen = props => {
               <Text
                 style={{ alignSelf: "center", fontSize: 14, color: "dimgrey" }}
               >
-                {Platform.OS == "android"
-                  ? Constants.platform.android.versionCode
-                  : Constants.platform.ios.systemVersion}
+                {Platform.OS + " " + Platform.Version}
               </Text>
             </View>
           </View>

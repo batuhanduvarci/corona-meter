@@ -11,7 +11,7 @@ import {
   Alert
 } from "react-native";
 import MapView from "react-native-map-clustering";
-import { Marker, Callout } from "react-native-maps";
+import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import useCoordinates from "../hooks/useCoordinates";
 import CustomMarker from "../components/CustomMarker";
@@ -59,6 +59,7 @@ export default WorldMapScreen = () => {
             latitudeDelta: 30.0,
             longitudeDelta: 30.0
           }}
+          clusterColor="#F84849"
         >
           {coordinates == undefined || null
             ? null

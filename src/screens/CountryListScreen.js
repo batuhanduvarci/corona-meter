@@ -16,13 +16,13 @@ import storeData from "../utils/LocalStorage/storeData";
 import readData from "../utils/LocalStorage/readData";
 import i18n from "i18n-js";
 
-const tabTitle = i18n.t("country_list_label");
-
 export default CountryListScreen = () => {
   const [getCountries, countries, errorMessage] = useCountries();
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [modalData, setModalData] = useState([false, ""]);
   const [countryWatchList, setCountryWatchList] = useState(null);
+
+  const tabTitle = i18n.t("country_list_label");
 
   const openCountryDetailModal = countryName => {
     if (countryName == "") {
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    marginTop: 100
+    marginTop: 140
   },
   modalStyle: {
     flex: 1

@@ -11,22 +11,22 @@ import WatchListContainer from "../components/WatchListContainer";
 import useCountryDetail from "../hooks/useCountryDetail";
 import i18n from "i18n-js";
 
-const tabTitle = i18n.t("bottom_navigator_home");
-
-const containerTitles = [
-  i18n.t("total_case_label"),
-  i18n.t("todays_case_label"),
-  i18n.t("current_case_label")
-];
-
-const numberFormat = "0,0";
-
 export default MainScreen = ({ navigation }) => {
   const [getTotalCases, result, errorMessage] = useMainResults();
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [parsedData, setParsedData] = useState([]);
   const [parsedCountryDetail, setParsedCountryDetail] = useState([]);
   const [getCountryDetail] = useCountryDetail();
+
+  const tabTitle = i18n.t("bottom_navigator_home");
+
+  const containerTitles = [
+    i18n.t("total_case_label"),
+    i18n.t("todays_case_label"),
+    i18n.t("current_case_label")
+  ];
+
+  const numberFormat = "0,0";
 
   const compareValues = (oldValue, newValue) => {
     if (oldValue > newValue) {
@@ -189,7 +189,7 @@ export default MainScreen = ({ navigation }) => {
           { nativeEvent: { contentOffset: { y: scrollY } } }
         ])}
       >
-        <View style={[styles.container, { marginTop: 100 }]}>
+        <View style={[styles.container, { marginTop: 140 }]}>
           <View style={{ alignItems: "center", marginTop: 8 }}>
             {result === undefined ? (
               <ShimmerPlaceholder style={styles.shimmerStyle} autoRun={true} />

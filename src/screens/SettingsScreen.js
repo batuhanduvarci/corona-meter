@@ -16,12 +16,12 @@ import Constants from "expo-constants";
 import readData from "../utils/LocalStorage/readData";
 import { Buffer } from "buffer";
 
-const tabTitle = i18n.t("settings_label");
-
 export default SettingsScreen = props => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [language, setLanguage] = useState(i18n.locale);
   const [size, setSize] = useState(0);
+
+  const tabTitle = i18n.t("settings_label");
 
   const clearLocalStorage = async () => {
     if (Platform.OS == "android") {
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    marginTop: 100
+    marginTop: 140
   },
   rowStyle: {
     paddingVertical: 10,

@@ -54,8 +54,8 @@ export default WorldMapScreen = () => {
           style={styles.mapStyle}
           provider="google"
           initialRegion={{
-            latitude: 38.423733,
-            longitude: 27.142826,
+            latitude: location ? location.latitude : 38.423733,
+            longitude: location ? location.longitude : 27.142826,
             latitudeDelta: 30.0,
             longitudeDelta: 30.0
           }}

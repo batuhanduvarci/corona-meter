@@ -28,6 +28,5 @@ export default {
   contact_label: "İletişim",
   device_label: "Cihaz",
   os_label: "İşletim Sistemi Versiyonu",
-  byte_label: "Byte kullanılıyor",
-  number_format: "0.0"
+  byte_label: "Byte kullanılıyor"
 };

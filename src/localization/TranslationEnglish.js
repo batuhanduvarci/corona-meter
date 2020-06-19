@@ -17,7 +17,7 @@ export default {
   active: "Active",
   critical: "Critical",
   total_case: "Total Cases",
-  country_list_label: "Country Label",
+  country_list_label: "Country List",
   details_label: "Details",
   settings_label: "Settings",
   local_storage_label: "Local Storage",
@@ -28,6 +28,5 @@ export default {
   contact_label: "Contact Developer",
   device_label: "Device",
   os_label: "Operating System Version",
-  byte_label: "Bytes are used",
-  number_format: "0,0"
+  byte_label: "Bytes are used"
 };

@@ -23,7 +23,7 @@ export default CovidContainer = ({ data }) => {
       let label = i18n.t(key);
 
       rows.push(
-        <View style={styles.innerContainer}>
+        <View key={Math.random()} style={styles.innerContainer}>
           <View style={{ flexDirection: "column", alignItems: "center" }}>
             <MaterialCommunityIcons
               name="human-male"

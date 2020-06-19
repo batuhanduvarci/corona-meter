@@ -4,11 +4,11 @@ import { StyleSheet, Animated, SafeAreaView } from "react-native";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 // import SearchBar from "./SearchBar";
 
-const HEADER_MAX_HEIGHT = 100;
-const HEADER_MIN_HEIGHT = 50;
+const HEADER_MAX_HEIGHT = 140;
+const HEADER_MIN_HEIGHT = 70;
 
 const TITLE_MAX_SIZE = 60;
-const TITLE_MIN_SIZE = 16;
+const TITLE_MIN_SIZE = 20;
 
 const Header = ({ tabTitle, scrollY }) => {
   const [isSearchBarVisible, setSearchBarVisible] = useState(false);
@@ -55,7 +55,6 @@ const Header = ({ tabTitle, scrollY }) => {
         backgroundColor: titleContainerColor,
         height: headerHeight,
         zIndex: headerZindex
-        // borderBottomEndRadius: -16
       }}
     >
       <SafeAreaView

@@ -15,19 +15,28 @@ export default CountryListItem = ({
   const renderCell = () => {
     return (
       <View style={styles.container}>
-        <TextTicker
-          style={styles.titleText}
-          duration={5000}
-          loop
-          marqueeDelay={1000}
-          shouldAnimateTreshold={5}
-          bounce={false}
-        >
+        <View style={{flex : 4}}>
+        {countryName.length > 25 ? (
+              <TextTicker
+              style={styles.titleText}
+              duration={5000}
+              loop
+              marqueeDelay={1000}
+              shouldAnimateTreshold={10}
+              bounce={false}
+            >
+              {countryName}
+            </TextTicker>
+            ) : (
+              <Text style={styles.titleText}>{countryName}</Text>
+            )}
+        </View>
+        {/* <Text>
           {countryName}
-        </TextTicker>
+        </Text> */}
         {/* <Text style={styles.titleText}>{countryName}</Text> */}
         {/* <FontAwesome name="arrow-right" size={30} color="dimgrey" /> */}
-        <View style={{ paddingLeft: 10 }}>
+        <View style={{ flex : 1, paddingLeft: 10 }}>
           {watchState ? (
             <TouchableOpacity
               onPress={() => {
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   titleText: {
-    fontSize: 20
+    fontSize: 18
   },
   innerContainer: {
     flex: 1,

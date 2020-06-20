@@ -12,7 +12,7 @@ const screenWidth = Dimensions.get("screen").width;
 
 export default WatchListContainer = ({ data }) => {
   return (
-    <View style={{ width: screenWidth }}>
+    <View style={{ flex : 1 }}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <Text style={{ flex: 1, fontWeight: "bold", fontSize: 16 }}>

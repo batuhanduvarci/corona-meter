@@ -28,11 +28,13 @@ const containerTitles = [
 
 const numberFormat = "0,0";
 
-export default CountryDetailScreen = ({ countryName, modalAction }) => {
+export default CountryDetailScreen = ({ countryName }) => {
   const [getCountryDetail, countryDetail, errorMessage] = useCountryDetail();
   const [refreshing, setRefreshing] = useState(false);
   const [parsedData, setParsedData] = useState([]);
   const [otherData, setOtherData] = useState();
+
+  console.log("CountryDetail =>", countryName)
 
   const compareValues = (oldValue, newValue) => {
     if (oldValue > newValue) {

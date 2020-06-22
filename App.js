@@ -10,6 +10,7 @@ import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import TranslationTurkish from "./src/localization/TranslationTurkish";
 import TranslationEnglish from "./src/localization/TranslationEnglish";
+import { createStackNavigator } from "@react-navigation/stack";
 
 i18n.translations = {
   "en-US": TranslationEnglish,
@@ -24,19 +25,19 @@ if (Localization.locale == "tr-US") {
   i18n.locale = "en-US";
 }
 
-export default function App() {
-  const Tab = createMaterialBottomTabNavigator();
-  const [locale, setLocale] = useState("en-US");
+const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
 
+const TabNavigator = () => {  
+  const [locale, setLocale] = useState("en-US");
+  i18n.locale = locale;
+
+  
   const changeLanguage = value => {
     setLocale(value);
   };
-
-  i18n.locale = locale;
-
   return (
-    <NavigationContainer>
-      <Tab.Navigator
+<Tab.Navigator
         initialRouteName={i18n.t("bottom_navigator_home")}
         activeColor="white"
       >
@@ -78,6 +79,16 @@ export default function App() {
           }}
         />
       </Tab.Navigator>
+  )
+}
+
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" headerMode="none">
+        <Stack.Screen name="Home" component={TabNavigator}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

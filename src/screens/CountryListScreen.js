@@ -19,19 +19,25 @@ import storeData from "../utils/LocalStorage/storeData";
 import readData from "../utils/LocalStorage/readData";
 import i18n from "i18n-js";
 
-export default CountryListScreen = () => {
+export default CountryListScreen = (props) => {
   const [getCountries, countries, errorMessage] = useCountries();
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [modalData, setModalData] = useState([false, ""]);
   const [countryWatchList, setCountryWatchList] = useState(null);
 
+  
+  console.log(props.navigation.navigate)
+
   const openCountryDetailModal = countryName => {
-    console.log("openCountryDetailModal")
-    if (countryName == "") {
-      setModalData([false, countryName]);
-    } else {
-      setModalData([true, countryName]);
-    }
+    // console.log("openCountryDetailModal")
+    // if (countryName == "") {
+    //   setModalData([false, countryName]);
+    // } else {
+    //   setModalData([true, countryName]);
+    // }
+    props.navigation.navigate(CountryDetailScreen, {
+      countryName : countryName
+    })
   };
 
   const showLoading = () => {
@@ -121,21 +127,22 @@ export default CountryListScreen = () => {
   };
 
   const footerComponent = () => {
-    return (
-      <Modal
-        animated={true}
-        animationType="fade"
-        contentContainerStyle={styles.modalStyle}
-        visible={modalData[0]}
-        dismissable={true}
+    // return (
+    //   <Modal
+    //     animated={true}
+    //     animationType="fade"
+    //     contentContainerStyle={styles.modalStyle}
+    //     visible={modalData[0]}
+    //     dismissable={true}
         
-      >
-        <CountryDetailScreen
-          countryName={modalData[1]}
-          modalAction={openCountryDetailModal}
-        />
-      </Modal>
-    );
+    //   >
+    //     <CountryDetailScreen
+    //       countryName={modalData[1]}
+    //       modalAction={openCountryDetailModal}
+    //     />
+    //   </Modal>
+    // );
+    return null
   };
 
   return (

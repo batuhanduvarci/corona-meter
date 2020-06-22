@@ -34,7 +34,7 @@ export default WorldMapScreen = ({ data }) => {
         }
       ]}
     >
-      <Text>{data.country}</Text>
+      <Text style={{ textAlign: "center" }}>{data.country}</Text>
       <View
         style={{
           postion: "absolute",

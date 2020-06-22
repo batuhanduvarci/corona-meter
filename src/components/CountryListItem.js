@@ -15,9 +15,9 @@ export default CountryListItem = ({
   const renderCell = () => {
     return (
       <View style={styles.container}>
-        <View style={{flex : 4}}>
-        {countryName.length > 25 ? (
-              <TextTicker
+        <View style={{ flex: 4 }}>
+          {countryName.length > 25 ? (
+            <TextTicker
               style={styles.titleText}
               duration={5000}
               loop
@@ -27,16 +27,16 @@ export default CountryListItem = ({
             >
               {countryName}
             </TextTicker>
-            ) : (
-              <Text style={styles.titleText}>{countryName}</Text>
-            )}
+          ) : (
+            <Text style={styles.titleText}>{countryName}</Text>
+          )}
         </View>
         {/* <Text>
           {countryName}
         </Text> */}
         {/* <Text style={styles.titleText}>{countryName}</Text> */}
         {/* <FontAwesome name="arrow-right" size={30} color="dimgrey" /> */}
-        <View style={{ flex : 1, paddingLeft: 10 }}>
+        <View style={{ flex: 1, paddingLeft: 10 }}>
           {watchState ? (
             <TouchableOpacity
               onPress={() => {
@@ -47,7 +47,7 @@ export default CountryListItem = ({
                 style={{
                   borderRadius: 6,
                   backgroundColor: "#F84849",
-                  paddingHorizontal: 8,
+                  paddingHorizontal: 12,
                   alignSelf: "center"
                 }}
               >
@@ -68,7 +68,7 @@ export default CountryListItem = ({
                 style={{
                   borderRadius: 6,
                   backgroundColor: "lightgrey",
-                  paddingHorizontal: 8,
+                  paddingHorizontal: 12,
                   alignSelf: "center"
                 }}
               >

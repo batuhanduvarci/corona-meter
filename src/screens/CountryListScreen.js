@@ -8,7 +8,8 @@ import {
   Modal,
   ActivityIndicator,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
+  Platform
 } from "react-native";
 import useCountries from "../hooks/useCountries";
 import Header from "../components/Header";
@@ -25,6 +26,7 @@ export default CountryListScreen = () => {
   const [countryWatchList, setCountryWatchList] = useState(null);
 
   const openCountryDetailModal = countryName => {
+    console.log("openCountryDetailModal")
     if (countryName == "") {
       setModalData([false, countryName]);
     } else {
@@ -126,6 +128,7 @@ export default CountryListScreen = () => {
         contentContainerStyle={styles.modalStyle}
         visible={modalData[0]}
         dismissable={true}
+        
       >
         <CountryDetailScreen
           countryName={modalData[1]}
@@ -136,7 +139,7 @@ export default CountryListScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, paddingTop : Platform.OS === "android" ? 30 : 0 }}>
       {countries === undefined ? (
         <View
           style={{

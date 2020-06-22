@@ -119,11 +119,13 @@ export default SettingsScreen = props => {
           <View style={{ flex: 1 }}>
             <Picker
               selectedValue={language}
+              mode="dialog"
               style={{
                 justifyContent: "center",
                 borderTopWidth: 0.5,
                 borderBottomWidth: 0.5,
-                borderColor: "dimgrey"
+                borderColor: "dimgrey",
+                backgroundColor : Platform.OS === "android" ? "white" : ""
               }}
               itemStyle={{
                 fontSize: 14,

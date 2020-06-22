@@ -8,10 +8,14 @@ export default () => {
   const parseCountries = data => {
     var countryList = [];
     if (data.country !== undefined) {
-      countryList.push(data.country);
+      // countryList.push(data.country);
+      countryList.push({ id: data.countryInfo._id, countryName: data.country });
     } else {
       data.map(item => {
-        countryList.push(item.country);
+        countryList.push({
+          id: item.countryInfo._id,
+          countryName: item.country
+        });
       });
     }
     return countryList;

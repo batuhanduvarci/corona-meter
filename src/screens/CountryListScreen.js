@@ -6,7 +6,9 @@ import {
   Animated,
   Text,
   Modal,
-  ActivityIndicator
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView
 } from "react-native";
 import useCountries from "../hooks/useCountries";
 import Header from "../components/Header";
@@ -21,8 +23,6 @@ export default CountryListScreen = () => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [modalData, setModalData] = useState([false, ""]);
   const [countryWatchList, setCountryWatchList] = useState(null);
-
-  const tabTitle = i18n.t("country_list_label");
 
   const openCountryDetailModal = countryName => {
     if (countryName == "") {
@@ -84,64 +84,42 @@ export default CountryListScreen = () => {
     });
   }, []);
 
-  return (
-    <Animated.View style={{ flex: 1, justifyContent: "center" }}>
-      <Header
-        tabTitle={tabTitle}
-        scrollY={scrollY}
-        isSearchActive={true}
-        getCountries={getCountries}
-      />
-      {countries === undefined ? (
-        showLoading()
-      ) : (
-        <ScrollView
-          style={{ flex: 1 }}
-          scrollEventThrottle={16}
-          onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { y: scrollY } } }
-          ])}
-        >
-          <View style={styles.container}>
-            {countries === undefined
-              ? showLoading()
-              : countries.map(item => {
-                  if (countryWatchList !== null || undefined) {
-                    if (countryWatchList.includes(item)) {
-                      return (
-                        <CountryListItem
-                          countryName={item}
-                          action={openCountryDetailModal}
-                          addToWatchListAction={addToWatchList}
-                          removeFromWatchListAction={removeFromWatchList}
-                          watchState={true}
-                        />
-                      );
-                    } else {
-                      return (
-                        <CountryListItem
-                          countryName={item}
-                          action={openCountryDetailModal}
-                          addToWatchListAction={addToWatchList}
-                          watchState={false}
-                        />
-                      );
-                    }
-                  } else {
-                    return (
-                      <CountryListItem
-                        countryName={item}
-                        action={openCountryDetailModal}
-                        addToWatchListAction={addToWatchList}
-                        watchState={false}
-                      />
-                    );
-                  }
-                })}
-          </View>
-        </ScrollView>
-      )}
+  const renderRow = countryName => {
+    if (countryWatchList !== null || undefined) {
+      if (countryWatchList.includes(countryName)) {
+        return (
+          <CountryListItem
+            countryName={countryName}
+            action={openCountryDetailModal}
+            addToWatchListAction={addToWatchList}
+            removeFromWatchListAction={removeFromWatchList}
+            watchState={true}
+          />
+        );
+      } else {
+        return (
+          <CountryListItem
+            countryName={countryName}
+            action={openCountryDetailModal}
+            addToWatchListAction={addToWatchList}
+            watchState={false}
+          />
+        );
+      }
+    } else {
+      return (
+        <CountryListItem
+          countryName={countryName}
+          action={openCountryDetailModal}
+          addToWatchListAction={addToWatchList}
+          watchState={false}
+        />
+      );
+    }
+  };
 
+  const footerComponent = () => {
+    return (
       <Modal
         animated={true}
         animationType="fade"
@@ -154,7 +132,33 @@ export default CountryListScreen = () => {
           modalAction={openCountryDetailModal}
         />
       </Modal>
-    </Animated.View>
+    );
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      {countries === undefined ? (
+        <View
+          style={{
+            justifyContent: "center",
+            alignSelf: "center",
+            position: "absolute",
+            top: 0,
+            bottom: 0
+          }}
+        >
+          {showLoading()}
+        </View>
+      ) : (
+        <FlatList
+          data={countries}
+          renderItem={data => renderRow(data.item.countryName)}
+          keyExtractor={item => item.id}
+          initialNumToRender={15}
+          ListFooterComponent={footerComponent()}
+        />
+      )}
+    </SafeAreaView>
   );
 };
 

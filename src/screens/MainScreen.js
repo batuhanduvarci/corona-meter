@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, ScrollView, View, Animated } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  Animated,
+  FlatList,
+  Modal
+} from "react-native";
 import CovidContainer from "../components/CovidContainer";
 import useMainResults from "../hooks/useMainResults";
 import Header from "../components/Header";
@@ -17,9 +25,9 @@ export default MainScreen = ({ navigation }) => {
   const [parsedData, setParsedData] = useState([]);
   const [parsedCountryDetail, setParsedCountryDetail] = useState([]);
   const [getCountryDetail] = useCountryDetail();
+  const [modalData, setModalData] = useState([false, ""]);
 
   const tabTitle = i18n.t("bottom_navigator_home");
-
   const containerTitles = [
     i18n.t("total_case_label"),
     i18n.t("todays_case_label"),
@@ -159,6 +167,7 @@ export default MainScreen = ({ navigation }) => {
           for (let index = 0; index < data.length; index++) {
             detail = await getCountryDetail(data[index]);
             detailArr.push({
+              id: index,
               country: detail.country,
               confirmed: numeral(detail.cases).format(numberFormat),
               deaths: numeral(detail.deaths).format(numberFormat),
@@ -177,6 +186,14 @@ export default MainScreen = ({ navigation }) => {
           setParsedCountryDetail([]);
         }
       });
+  };
+
+  const openCountryDetailModal = countryName => {
+    if (countryName == "") {
+      setModalData([false, countryName]);
+    } else {
+      setModalData([true, countryName]);
+    }
   };
 
   return (
@@ -235,27 +252,52 @@ export default MainScreen = ({ navigation }) => {
             <Text style={styles.titleStyle}>
               {i18n.t("country_watch_label")}
             </Text>
-            <ScrollView horizontal={true}>
-              {parsedCountryDetail != 0
-                ? parsedCountryDetail.map(item => {
-                    return <WatchListContainer data={item} />;
-                  })
-                : null}
-            </ScrollView>
-            {parsedCountryDetail.length == 0 ? (
-              <Text
-                style={{
-                  alignSelf: "center",
-                  color: "dimgrey",
-                  marginVertical: 4
-                }}
-              >
-                {i18n.t("country_watch_info_label")}
-              </Text>
-            ) : null}
+            <FlatList
+              contentContainerStyle={{
+                flexGrow: 1,
+                justifyContent:
+                  parsedCountryDetail == [] ? "flex-start" : "center"
+              }}
+              data={parsedCountryDetail}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={data => (
+                <WatchListContainer
+                  data={data.item}
+                  action={openCountryDetailModal}
+                />
+              )}
+              keyExtractor={item => item.index}
+              ListEmptyComponent={
+                <Text
+                  style={{
+                    alignSelf: "center",
+                    justifyContent: "center",
+                    color: "dimgrey",
+                    marginVertical: 4,
+                    marginLeft: 6
+                  }}
+                >
+                  {i18n.t("country_watch_info_label")}
+                </Text>
+              }
+              initialNumToRender={5}
+            />
           </View>
         </View>
       </ScrollView>
+      <Modal
+        animated={true}
+        animationType="fade"
+        contentContainerStyle={styles.modalStyle}
+        visible={modalData[0]}
+        dismissable={true}
+      >
+        <CountryDetailScreen
+          countryName={modalData[1]}
+          modalAction={openCountryDetailModal}
+        />
+      </Modal>
     </Animated.View>
   );
 };
@@ -271,5 +313,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold"
   },
-  shimmerStyle: { borderRadius: 8 }
+  shimmerStyle: { borderRadius: 8 },
+  modalStyle: {
+    flex: 1
+  }
 });

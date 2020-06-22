@@ -60,6 +60,7 @@ export default WorldMapScreen = () => {
             longitudeDelta: 30.0
           }}
           clusterColor="#F84849"
+          showsUserLocation={true}
         >
           {coordinates == undefined || null
             ? null

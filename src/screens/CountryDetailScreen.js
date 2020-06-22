@@ -7,9 +7,9 @@ import {
   Text,
   SafeAreaView,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import useCountryDetail from "../hooks/useCountryDetail";
 import CovidContainer from "../components/CovidContainer";

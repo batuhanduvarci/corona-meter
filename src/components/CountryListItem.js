@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import TextTicker from "react-native-text-ticker";
 import i18n from "i18n-js";
+import { Platform } from "@unimodules/core";
 
 export default CountryListItem = ({
   countryName,
@@ -31,11 +32,6 @@ export default CountryListItem = ({
             <Text style={styles.titleText}>{countryName}</Text>
           )}
         </View>
-        {/* <Text>
-          {countryName}
-        </Text> */}
-        {/* <Text style={styles.titleText}>{countryName}</Text> */}
-        {/* <FontAwesome name="arrow-right" size={30} color="dimgrey" /> */}
         <View style={{ flex: 1, paddingLeft: 10 }}>
           {watchState ? (
             <TouchableOpacity
@@ -43,14 +39,7 @@ export default CountryListItem = ({
                 removeFromWatchListAction(countryName);
               }}
             >
-              <View
-                style={{
-                  borderRadius: 6,
-                  backgroundColor: "#F84849",
-                  paddingHorizontal: 12,
-                  alignSelf: "center"
-                }}
-              >
+              <View style={styles.iconStyle}>
                 <MaterialCommunityIcons
                   name="eye-check-outline"
                   size={20}
@@ -65,12 +54,7 @@ export default CountryListItem = ({
               }}
             >
               <View
-                style={{
-                  borderRadius: 6,
-                  backgroundColor: "lightgrey",
-                  paddingHorizontal: 12,
-                  alignSelf: "center"
-                }}
+                style={[styles.iconStyle, { backgroundColor: "lightgrey" }]}
               >
                 <MaterialCommunityIcons
                   name="eye-plus-outline"
@@ -87,15 +71,7 @@ export default CountryListItem = ({
           }}
         >
           <View style={{ paddingLeft: 4 }}>
-            <View
-              style={{
-                borderRadius: 6,
-                backgroundColor: "#007AFF",
-                paddingHorizontal: 12,
-                paddingVertical: 4,
-                alignSelf: "center"
-              }}
-            >
+            <View style={styles.buttonTextStyle}>
               <Text style={{ color: "white" }}>{i18n.t("details_label")}</Text>
             </View>
           </View>
@@ -127,11 +103,18 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18
   },
-  innerContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 2
+  iconStyle: {
+    borderRadius: 6,
+    backgroundColor: "#F84849",
+    paddingHorizontal: 12,
+    paddingVertical: Platform.OS === "android" ? 2 : 0,
+    alignSelf: "center"
   },
-  shimmerStyle: { borderRadius: 8 }
+  buttonTextStyle: {
+    borderRadius: 6,
+    backgroundColor: "#007AFF",
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    alignSelf: "center"
+  }
 });

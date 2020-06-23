@@ -19,32 +19,28 @@ import storeData from "../utils/LocalStorage/storeData";
 import readData from "../utils/LocalStorage/readData";
 import MapView from "react-native-maps";
 import GoogleMapsStyle from "../utils/GoogleMapsStyle";
+import i18n from "i18n-js";
 
-const containerTitles = [
-  "Total Case Status",
-  "Today's Case Status",
-  "Current Case Status"
-];
-
-const numberFormat = "0,0";
-
-export default CountryDetailScreen = ({ countryName }) => {
+export default CountryDetailScreen = ({ navigation, route }) => {
   const [getCountryDetail, countryDetail, errorMessage] = useCountryDetail();
   const [refreshing, setRefreshing] = useState(false);
   const [parsedData, setParsedData] = useState([]);
   const [otherData, setOtherData] = useState();
+  const countryName = route.params.countryName;
+  const numberFormat = i18n.t("number_format");
 
-  console.log("CountryDetail =>", countryName)
+  const containerTitles = [
+    i18n.t("total_case_label"),
+    i18n.t("todays_case_label"),
+    i18n.t("current_case_label")
+  ];
 
   const compareValues = (oldValue, newValue) => {
     if (oldValue > newValue) {
-      //decreased
       return "decreased";
     } else if (oldValue < newValue) {
-      //increased
       return "increased";
     } else {
-      //equal
       return "equal";
     }
   };
@@ -201,9 +197,9 @@ export default CountryDetailScreen = ({ countryName }) => {
         >
           <View style={{ alignContent: "flex-start" }}>
             <TouchableOpacity
-              style={{ width: 40, height: 40, alignSelf: "center" }}
+              style={styles.backButtonStyle}
               onPress={() => {
-                modalAction("");
+                navigation.pop();
               }}
             >
               <Ionicons
@@ -228,14 +224,7 @@ export default CountryDetailScreen = ({ countryName }) => {
               <Text style={{ fontSize: 20 }}>{countryName}</Text>
             )}
           </View>
-          <View
-            style={{
-              height: 30,
-              width: 50,
-              alignSelf: "center",
-              alignItems: "flex-end"
-            }}
-          >
+          <View style={styles.flagContainer}>
             {otherData === undefined ? (
               <ActivityIndicator
                 style={{ justifyContent: "center", alignSelf: "center" }}
@@ -243,11 +232,7 @@ export default CountryDetailScreen = ({ countryName }) => {
               />
             ) : (
               <Image
-                style={{
-                  height: 30,
-                  width: 50,
-                  borderRadius: 8
-                }}
+                style={styles.flagStyle}
                 source={{ uri: otherData.flagUri }}
               />
             )}
@@ -270,7 +255,7 @@ export default CountryDetailScreen = ({ countryName }) => {
             <ShimmerPlaceholder style={styles.shimmerStyle} autoRun={true} />
           ) : (
             <Text style={{ color: "dimgray" }}>
-              Country Population: {otherData.countryPopulation}
+              {i18n.t("country_population_label")} {otherData.countryPopulation}
             </Text>
           )}
         </View>
@@ -279,7 +264,7 @@ export default CountryDetailScreen = ({ countryName }) => {
             <ShimmerPlaceholder style={styles.shimmerStyle} autoRun={true} />
           ) : (
             <Text style={{ color: "dimgray" }}>
-              Total Test Count: {otherData.totalTestCount}
+              {i18n.t("total_test_label")} {otherData.totalTestCount}
             </Text>
           )}
         </View>
@@ -300,7 +285,7 @@ export default CountryDetailScreen = ({ countryName }) => {
             <ShimmerPlaceholder style={styles.shimmerStyle} autoRun={true} />
           ) : (
             <Text style={{ color: "dimgray" }}>
-              Last update: {otherData.lastUpdate}
+              {i18n.t("last_update_label")} {otherData.lastUpdate}
             </Text>
           )}
         </View>
@@ -339,7 +324,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#F2F2F2",
-    paddingHorizontal: 4
+    paddingHorizontal: 4,
+    paddingTop: Platform.OS === "android" ? 30 : 0
   },
   mapContainer: {
     flex: 1,
@@ -366,5 +352,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold"
   },
-  shimmerStyle: { borderRadius: 8 }
+  shimmerStyle: { borderRadius: 8 },
+  backButtonStyle: { width: 40, height: 40, alignSelf: "center" },
+  flagContainer: {
+    height: 30,
+    width: 50,
+    alignSelf: "center",
+    alignItems: "flex-end"
+  },
+  flagStyle: {
+    height: 30,
+    width: 50,
+    borderRadius: 8
+  }
 });

@@ -36,13 +36,10 @@ export default MainScreen = ({ navigation }) => {
 
   const compareValues = (oldValue, newValue) => {
     if (oldValue > newValue) {
-      //decreased
       return "decreased";
     } else if (oldValue < newValue) {
-      //increased
       return "increased";
     } else {
-      //equal
       return "equal";
     }
   };
@@ -202,7 +199,7 @@ export default MainScreen = ({ navigation }) => {
           { nativeEvent: { contentOffset: { y: scrollY } } }
         ])}
       >
-        <View style={[styles.container, { marginTop: 140 }]}>
+        <View style={[styles.container, { marginTop: 130 }]}>
           <View style={{ alignItems: "center", marginTop: 8 }}>
             {result === undefined ? (
               <ShimmerPlaceholder style={styles.shimmerStyle} autoRun={true} />

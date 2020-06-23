@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  TouchableOpacity
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import i18n from "i18n-js";
-
-const screenWidth = Dimensions.get("screen").width;
 
 export default WatchListContainer = ({ data, action }) => {
   return (
@@ -18,129 +8,49 @@ export default WatchListContainer = ({ data, action }) => {
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ flex: 1, fontWeight: "bold", fontSize: 16 }}>
-              {data.country}
-            </Text>
+            <Text style={styles.countryTextStyle}>{data.country}</Text>
             <TouchableOpacity
               onPress={() => {
                 action(data.country);
               }}
             >
-              <View
-                style={{
-                  borderRadius: 6,
-                  backgroundColor: "#007AFF",
-                  paddingHorizontal: 12,
-                  paddingVertical: 4,
-                  alignSelf: "center"
-                }}
-              >
-                <Text style={{ color: "white" }}>
+              <View style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>
                   {i18n.t("details_label")}
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              height: 1,
-              backgroundColor: "dimgray",
-              paddingHorizontal: 16,
-              marginVertical: 4
-            }}
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: 4
-            }}
-          >
-            <View
-              style={{
-                width: 100,
-                height: 60
-              }}
-            >
-              <Image
-                style={{ width: 100, height: 60, borderRadius: 8 }}
-                source={{ uri: data.flagUri }}
-              />
+          <View style={styles.dividerStyle} />
+          <View style={styles.bottomContainerStyle}>
+            <View style={styles.imageContainerStyle}>
+              <Image style={styles.imageStyle} source={{ uri: data.flagUri }} />
             </View>
             <View style={{ flex: 1, flexDirection: "column" }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  marginStart: 16
-                }}
-              >
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "flex-start"
-                  }}
-                >
+              <View style={styles.rowStyle}>
+                <View style={styles.labelContainerStyle}>
                   <Text style={styles.labelStyle}>{i18n.t("confirmed")}</Text>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center"
-                  }}
-                >
-                  <Text style={{ color: "#FA8748", marginLeft: 32 }}>
-                    {data.confirmed}
-                  </Text>
+                <View style={styles.valueContainerStyle}>
+                  <Text style={styles.valueStyle}>{data.confirmed}</Text>
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  marginStart: 16
-                }}
-              >
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "flex-start"
-                  }}
-                >
+              <View style={styles.rowStyle}>
+                <View style={styles.labelContainerStyle}>
                   <Text style={styles.labelStyle}>{i18n.t("recovered")}</Text>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center"
-                  }}
-                >
-                  <Text style={{ color: "#40C12C", marginLeft: 32 }}>
+                <View style={styles.valueContainerStyle}>
+                  <Text style={[styles.valueStyle, { color: "#40C12C" }]}>
                     {data.recovered}
                   </Text>
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  marginStart: 16
-                }}
-              >
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "flex-start"
-                  }}
-                >
+              <View style={styles.rowStyle}>
+                <View style={styles.labelContainerStyle}>
                   <Text style={styles.labelStyle}>{i18n.t("deaths")}</Text>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center"
-                  }}
-                >
-                  <Text style={{ color: "#F84849", marginLeft: 32 }}>
+                <View style={styles.valueContainerStyle}>
+                  <Text style={[styles.valueStyle, { color: "#F84849" }]}>
                     {data.deaths}
                   </Text>
                 </View>
@@ -172,10 +82,42 @@ const styles = StyleSheet.create({
   labelStyle: {
     color: "dimgrey"
   },
-  innerContainer: {
-    flex: 1,
-    flexDirection: "column",
-    marginVertical: 2
+  countryTextStyle: { flex: 1, fontWeight: "bold", fontSize: 16 },
+  buttonStyle: {
+    borderRadius: 6,
+    backgroundColor: "#007AFF",
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    alignSelf: "center"
   },
-  shimmerStyle: { borderRadius: 8 }
+  buttonTextStyle: { color: "white" },
+  dividerStyle: {
+    height: 1,
+    backgroundColor: "dimgray",
+    paddingHorizontal: 16,
+    marginVertical: 4
+  },
+  bottomContainerStyle: {
+    flexDirection: "row",
+    marginTop: 4
+  },
+  imageContainerStyle: {
+    width: 100,
+    height: 60
+  },
+  imageStyle: { width: 100, height: 60, borderRadius: 8 },
+  rowStyle: {
+    flex: 1,
+    flexDirection: "row",
+    marginStart: 16
+  },
+  labelContainerStyle: {
+    flex: 1,
+    alignItems: "flex-start"
+  },
+  valueContainerStyle: {
+    flex: 1,
+    alignItems: "center"
+  },
+  valueStyle: { color: "#FA8748", marginLeft: 32 }
 });

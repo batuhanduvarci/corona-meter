@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import {
   FontAwesome,
@@ -31,24 +31,17 @@ export default CovidContainer = ({ data }) => {
               color={data[key].fieldColor}
             />
             <Text
-              style={{
-                fontSize: 14,
-                marginTop: 4,
-                color: data[key].fieldColor
-              }}
+              style={[
+                styles.valueTextStyle,
+                {
+                  color: data[key].fieldColor
+                }
+              ]}
             >
               {data[key].value}
             </Text>
-            <View
-              style={{
-                alignItems: "center",
-                marginTop: 4,
-                flexDirection: "row"
-              }}
-            >
-              <Text style={{ fontSize: 12, marginRight: 4, color: "dimgrey" }}>
-                {label}
-              </Text>
+            <View style={styles.labelContainerStyle}>
+              <Text style={styles.labelTextStyle}>{label}</Text>
               {iconSelector(data[key].status)}
             </View>
           </View>
@@ -89,8 +82,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center"
   },
-  titleText: {
-    fontSize: 20
+  valueTextStyle: {
+    fontSize: 14,
+    marginTop: 4
   },
   innerContainer: {
     flex: 1,
@@ -98,5 +92,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: 2
   },
-  shimmerStyle: { borderRadius: 8 }
+  labelContainerStyle: {
+    alignItems: "center",
+    marginTop: 4,
+    flexDirection: "row"
+  },
+  labelTextStyle: { fontSize: 12, marginRight: 4, color: "dimgrey" }
 });

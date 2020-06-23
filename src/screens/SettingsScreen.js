@@ -14,9 +14,9 @@ import { AsyncStorage, Platform } from "react-native";
 import i18n from "i18n-js";
 import Constants from "expo-constants";
 import readData from "../utils/LocalStorage/readData";
-// import { Buffer } from "buffer";
+import { Buffer } from "buffer";
 
-export default SettingsScreen = props => {
+export default SettingsScreen = ({ route, navigation }) => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [language, setLanguage] = useState(i18n.locale);
   const [size, setSize] = useState(0);
@@ -32,7 +32,7 @@ export default SettingsScreen = props => {
     await calculateUsedStorage();
   };
 
-  props.route.params.changeLanguage(language);
+  route.params.changeLanguage(language);
 
   const calculateUsedStorage = async () => {
     const keyArray = await AsyncStorage.getAllKeys();
@@ -53,7 +53,7 @@ export default SettingsScreen = props => {
   };
 
   useEffect(() => {
-    props.navigation.addListener("focus", () => {
+    navigation.addListener("focus", () => {
       calculateUsedStorage();
     });
   }, []);
@@ -69,7 +69,7 @@ export default SettingsScreen = props => {
         ])}
       >
         <View style={styles.container}>
-          <View style={styles.rowStyle}>
+          <View style={styles.labelRowStyle}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
@@ -92,14 +92,9 @@ export default SettingsScreen = props => {
           >
             <View
               style={[
-                styles.rowStyle,
+                styles.valueRowStyle,
                 {
-                  flexDirection: "row",
-                  backgroundColor: "white",
-                  borderTopWidth: 0.5,
-                  borderBottomWidth: 0.5,
-                  borderColor: "dimgrey",
-                  justifyContent: "space-between"
+                  borderTopWidth: 0.5
                 }
               ]}
             >
@@ -111,7 +106,7 @@ export default SettingsScreen = props => {
               </View>
             </View>
           </TouchableOpacity>
-          <View style={styles.rowStyle}>
+          <View style={styles.labelRowStyle}>
             <Text style={{ color: "dimgrey", fontSize: 12 }}>
               {i18n.t("language_label")}
             </Text>
@@ -120,18 +115,8 @@ export default SettingsScreen = props => {
             <Picker
               selectedValue={language}
               mode="dialog"
-              style={{
-                justifyContent: "center",
-                borderTopWidth: 0.5,
-                borderBottomWidth: 0.5,
-                borderColor: "dimgrey",
-                backgroundColor : Platform.OS === "android" ? "white" : ""
-              }}
-              itemStyle={{
-                fontSize: 14,
-                height: 100,
-                backgroundColor: "white"
-              }}
+              style={styles.pickerStyle}
+              itemStyle={styles.pickerItemStyle}
               onValueChange={itemValue => {
                 setLanguage(itemValue);
               }}
@@ -140,21 +125,16 @@ export default SettingsScreen = props => {
               <Picker.Item label="English" value="en-US" />
             </Picker>
           </View>
-          <View style={styles.rowStyle}>
+          <View style={styles.labelRowStyle}>
             <Text style={{ color: "dimgrey", fontSize: 12 }}>
               {i18n.t("about_label")}
             </Text>
           </View>
           <View
             style={[
-              styles.rowStyle,
+              styles.valueRowStyle,
               {
-                flexDirection: "row",
-                backgroundColor: "white",
-                borderTopWidth: 0.5,
-                borderBottomWidth: 0.5,
-                borderColor: "dimgrey",
-                justifyContent: "space-between"
+                borderTopWidth: 0.5
               }
             ]}
           >
@@ -169,18 +149,7 @@ export default SettingsScreen = props => {
               </Text>
             </View>
           </View>
-          <View
-            style={[
-              styles.rowStyle,
-              {
-                flexDirection: "row",
-                backgroundColor: "white",
-                borderBottomWidth: 0.5,
-                borderColor: "dimgrey",
-                justifyContent: "space-between"
-              }
-            ]}
-          >
+          <View style={styles.valueRowStyle}>
             <Text style={{ alignSelf: "center", fontSize: 14 }}>
               {i18n.t("device_label")}
             </Text>
@@ -192,18 +161,7 @@ export default SettingsScreen = props => {
               </Text>
             </View>
           </View>
-          <View
-            style={[
-              styles.rowStyle,
-              {
-                flexDirection: "row",
-                backgroundColor: "white",
-                borderBottomWidth: 0.5,
-                borderColor: "dimgrey",
-                justifyContent: "space-between"
-              }
-            ]}
-          >
+          <View style={styles.valueRowStyle}>
             <Text style={{ alignSelf: "center", fontSize: 14 }}>
               {i18n.t("os_label")}
             </Text>
@@ -215,18 +173,7 @@ export default SettingsScreen = props => {
               </Text>
             </View>
           </View>
-          <View
-            style={[
-              styles.rowStyle,
-              {
-                flexDirection: "row",
-                backgroundColor: "white",
-                borderBottomWidth: 0.5,
-                borderColor: "dimgrey",
-                justifyContent: "space-between"
-              }
-            ]}
-          >
+          <View style={styles.valueRowStyle}>
             <Text style={{ alignSelf: "center", fontSize: 14 }}>
               {i18n.t("contact_label")}
             </Text>
@@ -250,8 +197,29 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginTop: 140
   },
-  rowStyle: {
+  labelRowStyle: {
     paddingVertical: 10,
     paddingHorizontal: 8
+  },
+  valueRowStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderBottomWidth: 0.5,
+    borderColor: "dimgrey",
+    justifyContent: "space-between"
+  },
+  pickerStyle: {
+    justifyContent: "center",
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor: "dimgrey",
+    backgroundColor: Platform.OS === "android" ? "white" : null
+  },
+  pickerItemStyle: {
+    fontSize: 14,
+    height: 100,
+    backgroundColor: "white"
   }
 });

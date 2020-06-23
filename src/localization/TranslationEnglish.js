@@ -4,6 +4,7 @@ export default {
   bottom_navigator_countries: "Countries",
   bottom_navigator_settings: "Settings",
   world_population_label: "World Population:",
+  country_population_label: "Country Population:",
   total_test_label: "Total Test Count:",
   total_case_label: "Total Case Status",
   todays_case_label: "Today's Case Status",
@@ -28,5 +29,6 @@ export default {
   contact_label: "Contact Developer",
   device_label: "Device",
   os_label: "Operating System Version",
-  byte_label: "Bytes are used"
+  byte_label: "Bytes are used",
+  number_format: "0,0"
 };

@@ -106,21 +106,9 @@ export default CountryListScreen = props => {
   };
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, paddingTop: Platform.OS === "android" ? 30 : 0 }}
-    >
+    <SafeAreaView style={styles.container}>
       {countries === undefined ? (
-        <View
-          style={{
-            justifyContent: "center",
-            alignSelf: "center",
-            position: "absolute",
-            top: 0,
-            bottom: 0
-          }}
-        >
-          {showLoading()}
-        </View>
+        <View style={styles.loadingStyle}>{showLoading()}</View>
       ) : (
         <FlatList
           data={countries}
@@ -134,12 +122,12 @@ export default CountryListScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    marginTop: 140
-  },
-  modalStyle: {
-    flex: 1
+  container: { flex: 1, paddingTop: Platform.OS === "android" ? 30 : 0 },
+  loadingStyle: {
+    justifyContent: "center",
+    alignSelf: "center",
+    position: "absolute",
+    top: 0,
+    bottom: 0
   }
 });

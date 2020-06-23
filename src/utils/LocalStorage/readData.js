@@ -4,7 +4,5 @@ export default async key => {
   try {
     const value = await AsyncStorage.getItem(key);
     return value != null ? JSON.parse(value) : null;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };

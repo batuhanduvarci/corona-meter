@@ -66,14 +66,6 @@ export default WorldMapScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    marginTop: 100
-  },
-  modalStyle: {
-    flex: 1
-  },
   mapStyle: {
     ...StyleSheet.absoluteFillObject
   }

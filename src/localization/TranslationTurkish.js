@@ -4,6 +4,7 @@ export default {
   bottom_navigator_countries: "Ülkeler",
   bottom_navigator_settings: "Ayarlar",
   world_population_label: "Dünya Nüfusu:",
+  country_population_label: "Ülke Nüfusu:",
   total_test_label: "Toplam Test Sayısı:",
   total_case_label: "Toplam Vaka Durumu",
   todays_case_label: "Bugünün Vaka Durumu",
@@ -28,5 +29,6 @@ export default {
   contact_label: "İletişim",
   device_label: "Cihaz",
   os_label: "İşletim Sistemi Versiyonu",
-  byte_label: "Byte kullanılıyor"
+  byte_label: "Byte kullanılıyor",
+  number_format: "0,0"
 };

@@ -14,7 +14,7 @@ import { AsyncStorage, Platform } from "react-native";
 import i18n from "i18n-js";
 import Constants from "expo-constants";
 import readData from "../utils/LocalStorage/readData";
-import { Buffer } from "buffer";
+// import { Buffer } from "buffer";
 
 export default SettingsScreen = ({ route, navigation }) => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));

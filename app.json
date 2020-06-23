@@ -19,7 +19,7 @@
       "bundleIdentifier": "com.batuhanduvarci.coronaMeter",
       "buildNumber": "1.0.0",
       "config": {
-        "googleMapsApiKey": "AIzaSyDjCxKehLRu7UVa4ke-JE1VuclrblCjHos"
+        "googleMapsApiKey": "AIzaSyC-WwLmFCGrrvmAVvCDIp8nkcJqqcMyPqc"
       }
     },
     "android": {
@@ -27,7 +27,7 @@
       "versionCode": 1,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDjCxKehLRu7UVa4ke-JE1VuclrblCjHos"
+          "apiKey": "AIzaSyA3K25SWyld9hZxBJsQvgZnUpRpj1G504Q"
         }
       }
     }

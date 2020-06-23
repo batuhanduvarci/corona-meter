@@ -1,34 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Animated,
-  Text,
-  Modal,
-  SafeAreaView,
-  TouchableOpacity,
-  Alert
-} from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import useCoordinates from "../hooks/useCoordinates";
 import CustomMarker from "../components/CustomMarker";
-import CountryDetailScreen from "./CountryDetailScreen";
 
-export default WorldMapScreen = () => {
+export default WorldMapScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [getCoordinates, coordinates, errorMessage] = useCoordinates();
-  const [modalData, setModalData] = useState([false, ""]);
 
-  const openCountryDetailModal = countryName => {
-    if (countryName == "") {
-      setModalData([false, countryName]);
-    } else {
-      setModalData([true, countryName]);
-    }
+  const navigateToCountryDetail = countryName => {
+    navigation.navigate("CountryDetail", {
+      countryName: countryName
+    });
   };
 
   useEffect(() => {
@@ -43,8 +29,6 @@ export default WorldMapScreen = () => {
     })();
   }, []);
 
-  console.log("current location =>", location);
-
   return (
     <View style={{ flex: 1 }}>
       {errorMessage ? (
@@ -56,8 +40,8 @@ export default WorldMapScreen = () => {
           initialRegion={{
             latitude: location ? location.latitude : 38.423733,
             longitude: location ? location.longitude : 27.142826,
-            latitudeDelta: 30.0,
-            longitudeDelta: 30.0
+            latitudeDelta: 15.0,
+            longitudeDelta: 15.0
           }}
           clusterColor="#F84849"
           showsUserLocation={true}
@@ -69,7 +53,7 @@ export default WorldMapScreen = () => {
                   coordinate={marker.coordinates}
                   tracksViewChanges={false}
                   onPress={() => {
-                    openCountryDetailModal(marker.country);
+                    navigateToCountryDetail(marker.country);
                   }}
                 >
                   <CustomMarker data={marker} />
@@ -77,18 +61,6 @@ export default WorldMapScreen = () => {
               ))}
         </MapView>
       )}
-      <Modal
-        animated={true}
-        animationType="fade"
-        contentContainerStyle={styles.modalStyle}
-        visible={modalData[0]}
-        dismissable={true}
-      >
-        <CountryDetailScreen
-          countryName={modalData[1]}
-          modalAction={openCountryDetailModal}
-        />
-      </Modal>
     </View>
   );
 };

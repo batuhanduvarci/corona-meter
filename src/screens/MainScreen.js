@@ -5,8 +5,7 @@ import {
   ScrollView,
   View,
   Animated,
-  FlatList,
-  Modal
+  FlatList
 } from "react-native";
 import CovidContainer from "../components/CovidContainer";
 import useMainResults from "../hooks/useMainResults";
@@ -25,7 +24,6 @@ export default MainScreen = ({ navigation }) => {
   const [parsedData, setParsedData] = useState([]);
   const [parsedCountryDetail, setParsedCountryDetail] = useState([]);
   const [getCountryDetail] = useCountryDetail();
-  const [modalData, setModalData] = useState([false, ""]);
 
   const tabTitle = i18n.t("bottom_navigator_home");
   const containerTitles = [
@@ -34,7 +32,7 @@ export default MainScreen = ({ navigation }) => {
     i18n.t("current_case_label")
   ];
 
-  const numberFormat = "0,0";
+  const numberFormat = i18n.t("number_format");
 
   const compareValues = (oldValue, newValue) => {
     if (oldValue > newValue) {
@@ -188,12 +186,10 @@ export default MainScreen = ({ navigation }) => {
       });
   };
 
-  const openCountryDetailModal = countryName => {
-    if (countryName == "") {
-      setModalData([false, countryName]);
-    } else {
-      setModalData([true, countryName]);
-    }
+  const navigateToCountryDetail = countryName => {
+    navigation.navigate("CountryDetail", {
+      countryName: countryName
+    });
   };
 
   return (
@@ -264,7 +260,7 @@ export default MainScreen = ({ navigation }) => {
               renderItem={data => (
                 <WatchListContainer
                   data={data.item}
-                  action={openCountryDetailModal}
+                  action={navigateToCountryDetail}
                 />
               )}
               keyExtractor={item => item.index}
@@ -286,18 +282,6 @@ export default MainScreen = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <Modal
-        animated={true}
-        animationType="fade"
-        contentContainerStyle={styles.modalStyle}
-        visible={modalData[0]}
-        dismissable={true}
-      >
-        <CountryDetailScreen
-          countryName={modalData[1]}
-          modalAction={openCountryDetailModal}
-        />
-      </Modal>
     </Animated.View>
   );
 };

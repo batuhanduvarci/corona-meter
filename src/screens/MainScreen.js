@@ -5,7 +5,8 @@ import {
   ScrollView,
   View,
   Animated,
-  FlatList
+  FlatList,
+  Alert
 } from "react-native";
 import CovidContainer from "../components/CovidContainer";
 import useMainResults from "../hooks/useMainResults";
@@ -17,6 +18,7 @@ import readData from "../utils/LocalStorage/readData";
 import WatchListContainer from "../components/WatchListContainer";
 import useCountryDetail from "../hooks/useCountryDetail";
 import i18n from "i18n-js";
+import NetInfo from '@react-native-community/netinfo';
 
 export default MainScreen = ({ navigation }) => {
   const [getTotalCases, result, errorMessage] = useMainResults();
@@ -45,98 +47,105 @@ export default MainScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (result !== undefined) {
-      readData("worldCaseCompare")
-        .then(item => {
-          setParsedData([
-            {
-              confirmed: {
-                value: numeral(Number(result.cases)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(Number(item.totalConfirmed), result.cases),
-                fieldColor: "#FA8748"
-              },
-              recovered: {
-                value: numeral(Number(result.recovered)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(
-                        Number(item.totalRecovered),
-                        result.recovered
-                      ),
-                fieldColor: "#40C12C"
-              },
-              deaths: {
-                value: numeral(Number(result.deaths)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(Number(item.totalDeaths), result.deaths),
-                fieldColor: "#F84849"
-              }
-            },
-            {
-              confirmed: {
-                value: numeral(Number(result.todayCases)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(
-                        Number(item.todayConfirmed),
-                        result.todayCases
-                      ),
-                fieldColor: "#FA8748"
-              },
-              deaths: {
-                value: numeral(Number(result.todayDeaths)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(
-                        Number(item.todayDeaths),
-                        result.todayDeaths
-                      ),
-                fieldColor: "#F84849"
-              }
-            },
-            {
-              active: {
-                value: numeral(Number(result.active)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(Number(item.currentActive), result.active),
-                fieldColor: "#FA8748"
-              },
-              critical: {
-                value: numeral(Number(result.critical)).format(numberFormat),
-                status:
-                  item == undefined
-                    ? "equal"
-                    : compareValues(
-                        Number(item.currentCritical),
-                        result.critical
-                      ),
-                fieldColor: "#F84849"
-              }
-            }
-          ]);
-        })
-        .then(() => {
-          storeData("worldCaseCompare", {
-            totalConfirmed: result.cases,
-            totalRecovered: result.recovered,
-            totalDeaths: result.deaths,
-            todayConfirmed: result.todayCases,
-            todayDeaths: result.todayDeaths,
-            currentActive: result.active,
-            currentCritical: result.critical
-          });
-        });
-    }
+    NetInfo.fetch().then(state => {
+      if(state.isConnected){
+        if (result !== undefined) {
+          readData("worldCaseCompare")
+            .then(item => {
+              setParsedData([
+                {
+                  confirmed: {
+                    value: numeral(Number(result.cases)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(Number(item.totalConfirmed), result.cases),
+                    fieldColor: "#FA8748"
+                  },
+                  recovered: {
+                    value: numeral(Number(result.recovered)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(
+                            Number(item.totalRecovered),
+                            result.recovered
+                          ),
+                    fieldColor: "#40C12C"
+                  },
+                  deaths: {
+                    value: numeral(Number(result.deaths)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(Number(item.totalDeaths), result.deaths),
+                    fieldColor: "#F84849"
+                  }
+                },
+                {
+                  confirmed: {
+                    value: numeral(Number(result.todayCases)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(
+                            Number(item.todayConfirmed),
+                            result.todayCases
+                          ),
+                    fieldColor: "#FA8748"
+                  },
+                  deaths: {
+                    value: numeral(Number(result.todayDeaths)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(
+                            Number(item.todayDeaths),
+                            result.todayDeaths
+                          ),
+                    fieldColor: "#F84849"
+                  }
+                },
+                {
+                  active: {
+                    value: numeral(Number(result.active)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(Number(item.currentActive), result.active),
+                    fieldColor: "#FA8748"
+                  },
+                  critical: {
+                    value: numeral(Number(result.critical)).format(numberFormat),
+                    status:
+                      item == undefined
+                        ? "equal"
+                        : compareValues(
+                            Number(item.currentCritical),
+                            result.critical
+                          ),
+                    fieldColor: "#F84849"
+                  }
+                }
+              ]);
+            })
+            .then(() => {
+              storeData("worldCaseCompare", {
+                totalConfirmed: result.cases,
+                totalRecovered: result.recovered,
+                totalDeaths: result.deaths,
+                todayConfirmed: result.todayCases,
+                todayDeaths: result.todayDeaths,
+                currentActive: result.active,
+                currentCritical: result.critical
+              });
+            });
+        }
+      }else{
+        Alert.alert(i18n.t("connection_error_title"), i18n.t("connection_error_message"))
+      }
+    })
+    
     navigation.addListener("focus", () => {
       getWatchList();
     });

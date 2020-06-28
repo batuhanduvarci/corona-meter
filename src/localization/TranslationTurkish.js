@@ -30,5 +30,7 @@ export default {
   device_label: "Cihaz",
   os_label: "İşletim Sistemi Versiyonu",
   byte_label: "Byte kullanılıyor",
-  number_format: "0,0"
+  number_format: "0,0",
+  connection_error_title : "Bağlantı Hatası",
+  connection_error_message : "İnternete bağlı olduğunuzdan emin olun."
 };

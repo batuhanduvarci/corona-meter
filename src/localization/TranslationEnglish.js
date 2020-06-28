@@ -30,5 +30,7 @@ export default {
   device_label: "Device",
   os_label: "Operating System Version",
   byte_label: "Bytes are used",
-  number_format: "0,0"
+  number_format: "0,0",
+  connection_error_title : "Connection Error",
+  connection_error_message : "Make sure you are connected to Internet."
 };

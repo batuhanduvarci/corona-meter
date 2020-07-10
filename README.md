@@ -4,11 +4,13 @@ Covid 19 tracking application build with React Native(Non-commercial)
 
 This application is being developed with the help of [Expo.io](https://expo.io/)
 
-![Example1](/assets/example/ss1.png)
-![Example1](/assets/example/ss2.png)
-![Example1](/assets/example/ss3.png)
-![Example1](/assets/example/ss4.png)
-![Example1](/assets/example/ss5.png)
+<div align="center">
+<img width="150" height="250" src="assets/example/ss1.png">
+<img width="150" height="250" src="assets/example/ss2.png">
+<img width="150" height="250" src="assets/example/ss3.png">
+<img width="150" height="250" src="assets/example/ss4.png">
+<img width="150" height="250" src="assets/example/ss5.png">
+</div>
 
 ## Download
 

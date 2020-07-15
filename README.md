@@ -46,6 +46,10 @@ After running command above, you will see a browser tab like below on your compu
 
 As final step, you should download expo app on Google Play Store or App Store depending on which platform you are on.Then, open the expo application and select "Scan QR Code"(This only works on Android).Once you scanned the QR code, the application package will be downloaded and you will be good to go.
 
+## Download
+
+[Version 1.0.0](https://tinyurl.com/corona-meter)
+
 ## Application Features
 
 - Global daily and total confirmed, recovered, deceases, active and critical cases

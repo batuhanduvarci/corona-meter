@@ -12,7 +12,39 @@ This application is being developed with the help of [Expo.io](https://expo.io/)
 <img width="150" height="250" src="assets/example/ss5.png">
 </div>
 
-## Download
+## How To Run
+
+First of all [Node.js](https://nodejs.org/en/download/) must be installed on your system.Then, you must install the Expo CLI by writing below on your terminal.
+
+```
+npm install -g expo-cli
+```
+
+In next step, go to direction that you want to clone the project(You can download it via github as well).Run the command below.
+
+```
+git clone https://github.com/batuhanduvarci/corona-meter.git
+```
+
+Once you cloned the project, you should run the command below to install javascript packages which are used in this project.
+
+```
+npm install
+```
+
+In the next step, run the command below again :) to start the expo server on your local network.
+
+```
+expo start
+```
+
+After running command above, you will see a browser tab like below on your computer meaning that the server is ready.
+
+<div align="center">
+<img width="1000" height="700" src="assets/example/expo-sample.png">
+</div>
+
+As final step, you should download expo app on Google Play Store or App Store depending on which platform you are on.Then, open the expo application and select "Scan QR Code"(This only works on Android).Once you scanned the QR code, the application package will be downloaded and you will be good to go.
 
 ## Application Features
 
